@@ -1,9 +1,9 @@
 <!--
  * @Author: 1784026306@qq.com
  * @Date: 2022-07-10 22:51:32
- * @LastEditors: cwd
- * @LastEditTime: 2022-07-15 16:53:29
- * @FilePath: \koa2typecsripte:\学习\小程序前端\bookkeep\src\pages\index\index.vue
+ * @LastEditors: 1784026306@qq.com
+ * @LastEditTime: 2022-07-15 21:37:11
+ * @FilePath: \koa2typecsriptc:\Users\Administrator\Desktop\个人项目\前端项目\bookkeep\src\pages\index\index.vue
  * @Description: 
  * 
  * Copyright (c) 2022 by 1784026306@qq.com s15915138892, All Rights Reserved. 
@@ -32,7 +32,8 @@ const reuqerys = uni.login({
         code: loginRes.code,
       },
       header: {
-        "custom-header": "hello", //自定义请求头信息
+        // "custom-header": "hello", //自定义请求头信息
+        // Authorization:`Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU3ODExNjU4fQ.rqOV6liXCnTY8vl91UnPdZYpaP4m4lMhId53XslmF_Y`
       },
       success: (res) => {
         // console.log(res);
