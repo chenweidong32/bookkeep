@@ -1,9 +1,9 @@
 <!--
  * @Author: 1784026306@qq.com
  * @Date: 2022-07-10 22:51:32
- * @LastEditors: 1784026306@qq.com
- * @LastEditTime: 2022-07-14 21:55:37
- * @FilePath: \koa2typecsriptc:\Users\Administrator\Desktop\个人项目\bookkeep\src\pages\index\index.vue
+ * @LastEditors: cwd
+ * @LastEditTime: 2022-07-15 16:53:29
+ * @FilePath: \koa2typecsripte:\学习\小程序前端\bookkeep\src\pages\index\index.vue
  * @Description: 
  * 
  * Copyright (c) 2022 by 1784026306@qq.com s15915138892, All Rights Reserved. 
@@ -12,34 +12,71 @@
   <view class="content">
     <image class="logo" src="/static/logo.png" />
     <view class="text-area">
-      <text class="title">{{ title }}</text>
+      <text class="title" @click="getuserfile()">{{ title }}</text>
       <uni-badge text="1"></uni-badge>
     </view>
   </view>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-const title = ref('Hello')
+import { Ref, ref } from "vue";
+const title = ref("Hello");
+// let code = "";
+
 const reuqerys = uni.login({
-  provider: 'weixin',
+  provider: "weixin",
   success: function (loginRes) {
-    console.log(loginRes);
     uni.request({
-    url: 'http://localhost:3000/uset/wxLogin', //仅为示例，并非真实接口地址。
-    data: {
-        code:loginRes.code
+      url: "http://localhost:3000/user/wxLogin", //仅为示例，并非真实接口地址。
+      data: {
+        code: loginRes.code,
+      },
+      header: {
+        "custom-header": "hello", //自定义请求头信息
+      },
+      success: (res) => {
+        // console.log(res);
+      },
+    });
+  },
+});
+const getuserfile = () => {
+  // console.log("code是" + code);
+
+
+ uni.getUserProfile({
+    desc: "获取登录信息",
+    lang: "zh_CN",
+    success: function (user) {
+      console.log(user);
+      uni.login({
+ provider: "weixin",
+  success: function (loginRes) {
+
+
+      uni.request({
+        url: "http://localhost:3000/user/wxUserInfo", //仅为示例，并非真实接口地址。
+        data: {
+          code: loginRes.code,
+          iv: user.iv,
+          encryptedData: user.encryptedData,
+        },
+        header: {
+          "custom-header": "hello", //自定义请求头信息
+        },
+        success: (res) => {
+          console.log(res);
+        },
+      });
     },
-    header: {
-        'custom-header': 'hello' //自定义请求头信息
+    fail: function (err) {
+      console.log(err);
     },
-    success: (res) => {
-        console.log(res);
-        
+  });
     }
-});
-  }
-});
+})
+ 
+};
 </script>
 
 <style>
